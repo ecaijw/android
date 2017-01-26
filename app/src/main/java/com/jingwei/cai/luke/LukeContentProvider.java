@@ -46,6 +46,8 @@ public class LukeContentProvider extends ContentProvider {
             public static final String USER_NAME = "name";
             //默认的排序方法
             public static final String DEFAULT_SORT_ORDER = "_id desc";
+
+            public static final String[] PROJECTION_ALL = new String[]{USER_NAME};
         }
     }
 
@@ -57,8 +59,7 @@ public class LukeContentProvider extends ContentProvider {
         @Override
         public void onCreate(SQLiteDatabase db) {
             //创建用于存储数据的表
-            db.execSQL("Create table " + TABLE_NAME
-                    + "( _id INTEGER PRIMARY KEY AUTOINCREMENT, USER_NAME TEXT);");
+            db.execSQL("Create table " + TABLE_NAME + "( _id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);");
         }
 
         @Override
