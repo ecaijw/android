@@ -14,7 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Random;
 
 import static android.R.attr.data;
@@ -54,13 +57,22 @@ class DecodeWebAsyncTask extends DecodeTaskBase {
     @Override
     protected Object doInBackground(Object[] params) {
         long startTime = System.currentTimeMillis();
-        Bitmap bitmap = BitmapFactory.decodeFile(mPath);
-        long duration = System.currentTimeMillis() - startTime;
-        mResultString = String.format("decode done(%d) - %s", duration, (bitmap == null ? "fail" : "succeed"));
-        if (bitmap == null) {
-            bitmap = Helper.getRedBitmap();
+
+        try {
+            URL url = new URL(mPath);
+            Bitmap bitmap = BitmapFactory.decodeStream(url.openStream());
+            long duration = System.currentTimeMillis() - startTime;
+            if (bitmap == null) {
+                bitmap = Helper.getRedBitmap();
+            }
+            mBitmap = bitmap;
+            mResultString = String.format("decode done(%d) - %s", duration, (bitmap == null ? "fail" : "succeed"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        mBitmap = bitmap;
+
         return null;
     }
 }
@@ -114,7 +126,7 @@ public class ImageActivity extends AppCompatActivity {
         mEditLocal = (EditText) findViewById(R.id.editTextLocal);
         mEditLocal.setText(Environment.getExternalStorageDirectory() + "/test/2.jpg");
         mEditWeb = (EditText) findViewById(R.id.editTextWeb);
-        mEditWeb.setText("http://img4.duitang.com/uploads/item/201603/26/20160326193535_dj8cx.jpeg");
+        mEditWeb.setText("http://hi.csdn.net/attachment/201202/8/0_13287131646nNZ.gif");
         mImageView = (ImageView) findViewById(R.id.imageView);
         mImageView.setImageDrawable(getResources().getDrawable(R.drawable.green));
         ((Button) findViewById(R.id.buttonLocal)).setOnClickListener(new View.OnClickListener() {
@@ -130,10 +142,11 @@ public class ImageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String path = mEditWeb.getText().toString();
                 mListView.addMessage("decode web: " + path);
+                new DecodeWebAsyncTask(path, mUIHandler).execute();
+//                http://hi.csdn.net/attachment/201202/8/0_13287131646nNZ.gif
 //                http://img4.duitang.com/uploads/item/201603/26/20160326193535_dj8cx.jpeg
 //                http://pic24.nipic.com/20121023/5692504_110554234175_2.jpg
 //                http://pic24.nipic.com/20121023/5692504_113455646192_2.jpg
-                // new DecodeLocalAsyncTask(path).execute();
             }
         });
     }

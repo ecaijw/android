@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         lvData.add(new ListViewData("service (not done)", ServiceActivity.class));
         lvData.add(new ListViewData("handler thread", ActivityHandlerThread.class));
         lvData.add(new ListViewData("File", FileActivity.class));
-        lvData.add(new ListViewData("image (network decoding)", ImageActivity.class));
+        lvData.add(new ListViewData("image decoding", ImageActivity.class));
         lvData.add(new ListViewData("shared preference", SharedPrefActivity.class));
         lvData.add(new ListViewData("settings"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1);
