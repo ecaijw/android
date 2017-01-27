@@ -48,6 +48,24 @@ abstract class DecodeTaskBase extends AsyncTask {
     }
 }
 
+//    // TODO Auto-generated method stub
+//    // 使用网络连接类HttpClient类王城对网络数据的提取
+//    HttpClient httpClient = new DefaultHttpClient();
+//    HttpGet httpGet = new HttpGet(arg0[0]);
+//    Bitmap bitmap = null;
+//try {
+//        HttpResponse httpResponse = httpClient.execute(httpGet);
+//        if (httpResponse.getStatusLine().getStatusCode() == 200) {
+//        HttpEntity httpEntity = httpResponse.getEntity();
+//        byte[] data = EntityUtils.toByteArray(httpEntity);
+//        bitmap = BitmapFactory
+//        .decodeByteArray(data, 0, data.length);
+//        }
+//        } catch (Exception e) {
+//        // TODO: handle exception
+//        }
+//        return bitmap;
+
 class DecodeWebAsyncTask extends DecodeTaskBase {
     public DecodeWebAsyncTask(String path, Handler UIHandler) {
         super(path, UIHandler);
