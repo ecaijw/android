@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         final ArrayList<ListViewData> lvData = new ArrayList<>();
+        lvData.add(new ListViewData("Start DouYin", DouYinActivity.class));
         lvData.add(new ListViewData("content provider", ContentProviderActivity.class));
         lvData.add(new ListViewData("receiver", ReceiverActivity.class));
         lvData.add(new ListViewData("service (not done)", ServiceActivity.class));

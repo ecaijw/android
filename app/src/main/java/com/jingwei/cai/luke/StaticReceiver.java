@@ -17,5 +17,11 @@ public class StaticReceiver extends BroadcastReceiver {
             intentToSend.putExtra(ReceiverActivity.CUSTOM_INTENT_ACTION_EXTRA_NAME, "from " + this.getClass().getName());
             context.sendBroadcast(intentToSend);
         }
+
+        if  (intent.getAction() == DouYinActivity.CUSTOM_INTENT_ACTION_STATIC) {
+            Intent intentToSend = new Intent(DouYinActivity.CUSTOM_INTENT_ACTION_DYNAMIC);
+            intentToSend.putExtra(DouYinActivity.CUSTOM_INTENT_ACTION_EXTRA_NAME, "from " + this.getClass().getName());
+            context.sendBroadcast(intentToSend);
+        }
     }
 }
